@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}{% endblock %}</title>
+        {#{% block stylesheets %}{% endblock %}#}
+        <link type="text/css" rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}"/>
+        <link type="text/css" rel="stylesheet" href="{{asset('assets/css/font-awesome.min.css')}}"/>
+        <link rel="stylesheet" href="{{asset('assets/fonts/font.css')}}" type="text/css" media="screen"/>
+        <link type="text/css" rel="stylesheet" href="{{asset('assets/css/admin/droid.css')}}"/>
+
+        <link type="text/css" rel="stylesheet" href="{{asset('assets/css/admin/admin_style.css')}}"/>
+        <link type="text/css" rel="stylesheet" href="{{asset('assets/css/admin/style_me.css')}}"/>
+        <link type="text/css" rel="stylesheet" href="{{asset('assets/css/admin/datepicker.css')}}"/>
+        <script type="text/javascript" src="{{asset('assets/js/jquery-1.9.1.min.js') }}"></script>
+
+        <link rel="icon" type="image/x-icon" href="{{ asset('orange-logo.png') }}" />
+    </head>
+
+    <body dir="ltr">
+    <nav class="navbar navbar-inverse navbar-fixed-top blue_back">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header pull-left" style="margin-left: 15px">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ url('homepage') }}" target="_blank"><img style="margin-left:-14px; height: 60px; width: 215px;" src="{{ asset('assets/images/orange-land.jpg')}}"/></a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right" style="margin-right: 30px">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle pull-left text-center" data-toggle="dropdown" role="button" aria-expanded="false" style="width: 159px;">
+                            &nbsp;&nbsp;  {{app.session.get('fullname')}}  <span class="caret"></span></a>
+                        <ul class="dropdown-menu blue_back">
+                            <li class="text-left">
+                                <a href="{{ url('adminlogout') }}" class="text-center">
+                                    <i class="fa fa-fw fa-power-off"></i>
+                                    Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a target="_blank" href="{{ url('homepage') }}"><i class="fa fa-home"></i> Homepage</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <!--Content -->
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Right Side -->
+
+
+        {#{% block menu %}{% endblock %}#}
+
+            <!--Right Side -->
+            <div class="col-sm-2 col-xs-12 padding_none">
+                <div class="right_menu">
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+
+                        <div  class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingtwo">
+                                <h4 class="panel-title">
+                                    <a val="4" class="menu" data-toggle="collapse" data-parent="#accordion" href="#pages" aria-expanded="true" aria-controls="collapseOne">
+                                        <i class="fa fa-file-text-o"></i>  Notes <i class="fa fa-fw fa-caret-down"></i>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="pages" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingtwo">
+                                <div class="panel-body">
+                                    <ul  class="nav list-unstyled padding_none">
+                                        <li><a href="{{ url('add-note') }}"><i class="fa fa-plus"></i> add note </a></li>
+                                        <li><a href="{{ url('edit-note') }}"><i class="fa fa-edit"></i> edit/delete note </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div  class="panel panel-default menu">
+                            <div class="panel-heading" role="tab" id="headingtwo">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#users" aria-expanded="true" aria-controls="collapseOne">
+                                        <i class="fa fa-users"></i> Members <i class="fa fa-fw fa-caret-down"></i>
+                                    </a>
+                                </h4>
+
+                            </div>
+                            <div id="users" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingtwo">
+                                <div class="panel-body">
+                                    <ul class="nav list-unstyled padding_none">
+                                        <li><a href="{{ url('add-user') }}"><i class="fa fa-plus"></i> add New member</a></li>
+                                        <li><a href="{{ url('edit-user') }}"><i class="fa fa-edit"></i> edit/delete member</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+   </div>
+
+        {% block body %}{% endblock %}
+
+        {#{% block javascripts %}{% endblock %}#}
+        <script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/bootstrap-datepicker.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/script.js')}}"></script>
+
+            <!--/Content -->
+            <!--Footer-->
+            <div class="container-fluid footer_admin blue_back" style="position: fixed; width: 100%; bottom: 0; right:10px; padding-top:10px">
+                <div class="col-xs-12 text-center">
+                    <p> Copyright &copy; 2016 </p>
+                </div>
+            </div>
+    </body>
+</html>

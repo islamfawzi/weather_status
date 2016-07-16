@@ -1,0 +1,68 @@
+{% extends 'adminbase.html.twig' %}
+
+{% block title %} Control Panel :: users List {% endblock %}
+
+{% block body %}
+
+    <!--left Side -->
+    <div class="col-sm-10 col-xs-12">
+
+    <div class="forms">
+
+    <h5 class="form_title text-center"><i class="fa fa-edit"></i>users List</h5>
+
+    {% for flash_message in app.session.flashbag.get('notice') %}
+        <div class="alert alert-success">
+            <i class="fa fa-check font_big"></i>&nbsp;
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+
+    <a class="btn btn-success" href="{{ url('add-user') }}" style="margin-bottom: 15px;" > <i class="fa fa-plus"></i>  Add user </a>
+
+
+    <div class="table-responsive" >
+    <table class="table" dir="ltr">
+<tr>
+    <th class="text-center"><i class="fa fa-sort-numeric-asc fa-5"></i> #</th>
+    <th class="text-center"><i class="fa fa-pencil fa-5"></i> Fullname</th>
+    <th class="text-center"><i class="fa fa-pencil fa-5"></i> Username</th>
+    <th class="text-center"><i class="fa fa-calendar"></i> Email</th>
+    <th class="text-center"><i class="fa fa-pencil fa-5"></i> Mobile</th>
+    <th class="text-center"><i class="fa fa-smile-o fa-5"></i> Status</th>
+    <th class="text-center"><i class="fa fa-smile-o fa-5"></i> Type</th>
+    <th class="text-center"><i class="fa fa-calendar-check-o"></i> Last Visit</th>
+    <th class="text-center"><i class="fa fa-edit fa-5"></i> Edit</th>
+    <th class="text-left"><i class="fa fa-trash-o fa-5"></i> Delete</th>
+</tr>
+
+   <form action="" method="post">
+    {% for user in users %}
+<tr>
+    <td class="text-center">{{ user.id }}</td>
+    <td class="text-center"><a href="edit-user/{{ user.id }}">{{ user.fullname }}</a></td>
+    <td class="text-center">{{ user.username }}</td>
+    <td class="text-center">{{ user.email }}</td>
+    <td class="text-center">{{ user.mobile }}</td>
+    <td class="text-center">{% if user.status == 1 %}<i class="fa fa-check font_big green"></i>{% else %}<i class="fa fa-remove fa-5 font_big red"></i>{% endif %}</td>
+    <td class="text-center">{% if user.status == 1 %}Administrator{% else %}User{% endif %}</td>
+
+    <td class="text-center">{{ user.lastvisitDate|date('d-m-Y') }}</td>
+    <td class="text-center"><a class="btn btn-primary" href="edit-user/{{ user.id }}">edit </a></td>
+    <td class="text-left"><input type="checkbox" name="sel_users[]" value="{{ user.id }}" /></td>
+</tr>
+  {% endfor %}
+<tr>
+    <td class="text-center" colspan="9">
+        {#pagination#}
+    </td>
+    <td class="text-left"><input id="all" type="checkbox" /> &nbsp; check all </td>
+</tr>
+<tr>
+    <td colspan="9"></td>
+    <td class="text-left"><button type="submit" name="users_del" value="1" class="btn btn-danger btn-md"><i class="fa fa-trash-o"></i> Delete </button></td>
+</tr>
+   </form>
+    </table>
+    </div>
+{% endblock %}

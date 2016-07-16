@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="content-type" content="text/html" />
+    <link type="text/css" rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}"/>
+    <link type="text/css" rel="stylesheet" href="{{asset('assets/css/font-awesome.min.css')}}"/>
+    <link type="text/css" rel="stylesheet" href="{{asset('assets/css/admin/droid.css')}}"/>
+    <link rel="icon" type="image/x-icon" href="{{ asset('orange-logo.png') }}" />
+    <link type="text/css" rel="stylesheet" href="{{asset('assets/css/admin/admin_style.css')}}"/>
+    <link type="text/css" rel="stylesheet" href="{{asset('assets/css/admin/style_me.css')}}"/>
+    <link type="text/css" rel="stylesheet" href="{{asset('assets/css/admin/datepicker.css')}}"/>
+
+    <script type="text/javascript" src="{{asset('assets/js/jquery-1.9.1.min.js')}}"></script>
+    <title>Control Panel::Login</title>
+</head>
+
+    <body dir="rtl">
+    <div class="container">
+       <div class="row">
+          <div class="col-md-4 col-xs-12 col-md-offset-4 login">          
+             <h5 class="login_title text-center"><i class="fa fa-child"></i> Login </h5>
+             <form action="" method="post" class="login_form" id="login_form">
+                  <div class="input-group mr-bottom">
+                      <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                      <input class="form-control" id="username" name="username" value="" type="text" placeholder="username"/>
+                  </div>
+                  <p class="valid_alert" id="username_req">Username Required</p>
+                  <div class="input-group mr-bottom">
+                      <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+                      <input class="form-control" id="password" name="password" value="<" type="password" placeholder="password"/>
+                 </div>                 
+                  <p class="valid_alert" id="password_req">Password Required</p>
+                  <div class="checkbox">
+
+                      <input type="checkbox" value="1" name="remember_me"/> <span class="remember-me">Remember Me</span>
+
+                  </div>
+                  <p class="text-center">
+                      <button type="submit" name="submit_login" class="btn btn-success"> Login <i class="fa fa-lock"></i>{#<i class="fa fa-unlock"></i>#}</button>
+                  </p>
+             </form>
+          
+          </div>
+       </div>
+
+        <script type="text/javascript" src="{{asset("assets/js/script.js") }}" ></script>
+
+       <div class="row">
+          <div class="col-xs-12">
+
+       {% if logged == 1  %}
+
+            <div class="alert alert-success text-left">
+                <i class="fa fa-spinner fa-pulse fa-1x fa-fw margin-bottom"></i>
+                  .. Hello {{app.session.get('fullname')}} , You are logged in successfully
+                <i class="fa fa-smile-o"></i>
+                <meta http-equiv="Refresh" content="2; URL='{{ url('adminpage') }}'" />
+            </div>
+
+       {% elseif logged == 2 %}
+
+            <div class="alert alert-danger text-left">
+                <i class="fa fa-refresh fa-spin fa-1x fa-fw margin-bottom"></i>
+                 .. Invalid username or password, please try again
+                <i class="fa fa-frown-o"></i>
+            </div>
+
+       {% endif %}
+
+          </div> 
+       </div>   
+    </div>
+
+
+
+

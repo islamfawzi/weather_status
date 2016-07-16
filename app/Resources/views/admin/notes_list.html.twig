@@ -1,0 +1,77 @@
+{% extends 'adminbase.html.twig' %}
+
+{% block title %} Control Panel :: Notes List {% endblock %}
+
+{% block body %}
+
+    <!--left Side -->
+    <div class="col-sm-10 col-xs-12">
+
+    <div class="forms">
+
+    <h5 class="form_title text-center"><i class="fa fa-edit"></i>Notes List</h5>
+
+    {% for flash_message in app.session.flashbag.get('notice') %}
+        <div class="alert alert-success">
+            <i class="fa fa-check font_big"></i>&nbsp;
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+
+    <a class="btn btn-success" href="{{ url('add-note') }}" style="margin-bottom: 15px;" > <i class="fa fa-plus"></i>  Add Note </a>
+
+
+    <div class="table-responsive" >
+    <table class="table" dir="ltr">
+<tr>
+    <th class="text-center"><i class="fa fa-sort-numeric-asc fa-5"></i> #</th>
+    <th class="text-center"><i class="fa fa-pencil fa-5"></i> Title</th>
+    <th class="text-center"><i class="fa fa-smile-o fa-5"></i> Status</th>
+    <th class="text-center"><i class="fa fa-calendar"></i> Date</th>
+    <th class="text-center"><i class="fa fa-calendar-check-o"></i> Created Date</th>
+    <th class="text-center"><i class="fa fa-calendar-check-o"></i> Predefined For</th>
+    <th class="text-center"><i class="fa fa-edit fa-5"></i> Edit</th>
+    <th class="text-left"><i class="fa fa-trash-o fa-5"></i> Delete</th>
+</tr>
+
+   <form action="" method="post">
+    {% for note in notes %}
+<tr>
+    <td class="text-center">{{ note.id }}</td>
+    <td class="text-center">
+        <a href="edit-note/{{ note.id }}">{{ note.title }}</a><br />
+    </td>
+    <td class="text-center">{% if note.status == 1 %}<i class="fa fa-check font_big green"></i>{% else %}<i class="fa fa-remove fa-5 font_big red"></i>{% endif %}</td>
+    <td class="text-center">{{ note.noteDate|date('d-m-Y')}}</td>
+    <td class="text-center">{{ note.createDate|date('d-m-Y')}}</td>
+    <td class="text-center">
+        {% if note.predefined == 1 %}
+            1 < value <= 10
+        {% elseif note.predefined == 2 %}
+            10 < value <= 15
+        {% elseif note.predefined == 3 %}
+            15 < value <= 20
+        {% elseif note.predefined == 4 %}
+            20 < value
+        {% else %}
+            -
+        {% endif %}
+    </td>
+    <td class="text-center"><a class="btn btn-primary" href="edit-note/{{ note.id }}">edit </a></td>
+    <td class="text-left"><input type="checkbox" name="sel_notes[]" value="{{ note.id }}" /></td>
+</tr>
+  {% endfor %}
+<tr>
+    <td class="text-center" colspan="7">
+        {#pagination#}
+    </td>
+    <td class="text-left"><input id="all" type="checkbox" /> &nbsp; check all </td>
+</tr>
+<tr>
+    <td colspan="7"></td>
+    <td class="text-left"><button type="submit" name="notes_del" value="1" class="btn btn-danger btn-md"><i class="fa fa-trash-o"></i> Delete </button></td>
+</tr>
+   </form>
+    </table>
+    </div>
+{% endblock %}

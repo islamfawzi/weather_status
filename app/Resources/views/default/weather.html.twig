@@ -1,0 +1,22 @@
+<h1>Hello, {{ app.session.get('fullname') }}</h1>
+<h3>This is weather status for today: </h3>
+
+{% if  weather_status.Temperature %}
+    <h5>Temperature: {{ weather_status.Temperature }}</h5>
+{% endif %}
+
+{% if  weather_status.Wind %}
+    <h5>Wind: {{ weather_status.Wind }}</h5>
+{% endif %}
+
+{% if  weather_status.DewPoint %}
+    <h5>Dew Point: {{ weather_status.DewPoint }}</h5>
+{% endif %}
+
+{% if  weather_status.RelativeHumidity %}
+    <h5>Relative Humidity: {{ weather_status.RelativeHumidity }}</h5>
+{% endif %}
+
+{% if  weather_status.Pressure %}
+    <h5>Pressure: {{ weather_status.Pressure }}</h5>
+{% endif %}

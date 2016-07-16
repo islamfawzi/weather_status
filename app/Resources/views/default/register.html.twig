@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Register</title>
+
+    <link type="text/css" rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}"/>
+    <link type="text/css" rel="stylesheet" href="{{asset('assets/css/font-awesome.min.css')}}"/>
+    <link rel="stylesheet" href="{{asset('assets/fonts/font.css')}}" type="text/css" media="screen"/>
+    <link type="text/css" rel="stylesheet" href="{{asset('assets/css/admin/droid.css')}}"/>
+    <link type="text/css" rel="stylesheet" href="{{asset('assets/css/admin/datepicker.css')}}"/>
+    <script type="text/javascript" src="{{asset('assets/js/jquery-1.9.1.min.js') }}"></script>
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('orange-logo.png') }}" />
+</head>
+
+<body>
+<nav class="navbar navbar-fixed-top navbar-inverse" style="height: 60px;">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ url('homepage') }}" style="padding:0;">
+                <img style="margin-left:-14px; height: 60px; width: 215px;" src="{{ asset('assets/images/orange-land.jpg')}}"/>
+            </a>
+        </div>
+    </div><!-- /.container -->
+</nav>
+    <!-- Begin page content -->
+    <div class="container" style="padding-top: 25px;">
+        <div class="page-header">
+            <h1>Register</h1>
+        </div>
+
+        {% for flash_message in app.session.flashbag.get('notice') %}
+            <div class="alert alert-success">
+                <i class="fa fa-spinner fa-pulse fa-1x fa-fw margin-bottom"></i>&nbsp;
+                {{ flash_message }}
+                <meta http-equiv="Refresh" content="2; URL='{{ url('homepage') }}'" />
+            </div>
+        {% endfor %}
+
+        {% if errors is defined %}
+            <div class="alert alert-danger">
+                {% for error in errors %}
+                    <li>{{ error.message }}</li>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <p class="lead">Register to the system to Check the weather status and
+            See system notes about today’s weather</p>
+        <p> Already have <a href="{{ url('homepage') }}">Account</a></p>
+
+        <form action="" method="post" class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="email">User Name:</label>
+                <div class="col-sm-8">
+                    <input id="username" type="username" class="form-control" name="username" placeholder="Username ..">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="email">Email
+                     <span class="text-muted">(used to login):</span>
+                </label>
+
+                <div class="col-sm-8">
+                    <input type="email" class="form-control" name="email" placeholder="Email ..">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="pwd">Password:</label>
+                <div class="col-sm-8">
+                    <input type="password" class="form-control" name="password" placeholder="Password">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="email">Mobile:</label>
+                <div class="col-sm-8">
+                    <input type="mobile" class="form-control" name="mobile" placeholder="Mobile ..">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" name="register_submit" value="1"  class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+
+<script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/bootstrap-datepicker.js')}}"></script>
+
+
+<!--/Content -->
+<!--Footer-->
+<div class="container-fluid footer_admin blue_back" style="position: fixed;width: 100%;bottom: 0;padding-top:10px">
+    <div class="col-xs-12 text-center">
+        <p> Copyright &copy; 2016 </p>
+    </div>
+</div>
+
+</body>
+</html>

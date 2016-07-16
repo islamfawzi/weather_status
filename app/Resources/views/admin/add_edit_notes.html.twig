@@ -1,0 +1,185 @@
+{% extends 'adminbase.html.twig' %}
+
+{% block title %} Control Panel :: {{ title }} {% endblock %}
+
+
+
+{% block body %}
+    {% if page_index == 1 %}
+      <!--left Side -->
+        <div class="col-sm-10 col-xs-12" xmlns="http://www.w3.org/1999/html">
+             <div class="forms">
+                <h5 class="form_title text-center"><i class="fa fa-edit"></i>add note</h5>
+                 {% for flash_message in app.session.flashbag.get('notice') %}
+                     <div class="alert alert-success">
+                         <i class="fa fa-check font_big"></i>&nbsp;
+                         {{ flash_message }}
+                     </div>
+                 {% endfor %}
+
+                 {% if errors is defined %}
+                     <div class="alert alert-danger">
+                         {% for error in errors %}
+                             <li>{{ error.message }}</li>
+                         {% endfor %}
+                     </div>
+                 {% endif %}
+
+         <form method="post" action="{{ url('add-note') }}" enctype="multipart/form-data">
+           <div class="table-responsive" >
+             <table class="table" dir="ltr">
+               <tr>
+                   <td class="label_width input_label"><i class="fa fa-pencil fa-5"></i> Note Title :</td>
+                   <td><input type="text" {% if note is defined  %}value="{{ note.title}}" {% endif %} class="form-control inp_width" name="title" placeholder="note title ...."/></td>
+               </tr>
+
+
+               <tr>
+                   <td><i class="fa fa-unlock-alt"></i> Note Status :</td>
+                   <td>
+                      <input type="radio" name="status" {% if note is not defined or note.status == 1  %}checked="true"{% endif %} value="1" /> <i class="fa fa-thumbs-o-up"></i>  active
+                      <input type="radio" name="status" {% if note is defined and note.status == 0  %}checked="true"{% endif %} value="0" /> <i class="fa fa-thumbs-o-down"></i> not active
+                   </td>
+                </tr>
+
+                <tr class="page_desc_en" >
+                     <td><i class="fa fa-files-o"></i> Note Content :</td>
+                    <td colspan="3">
+                        <textarea name="content" class="form-control ckeditor"   rows="5" placeholder="note content..">{% if note is defined  %} {{ note.content}} {% endif %}</textarea>
+                    </td>
+                </tr>
+
+                 <tr class="page_desc_en" >
+                     <td><i class="fa fa-files-o"></i> Note Date :</td>
+                     <td colspan="3">
+                         <div class="input-group date" data-provide="datepicker">
+                             <input {% if note is defined  %}value="{{ note.noteDate|date('d-m-Y')}}" {% endif %} name="note_date" type="text" class="form-control datepicker">
+                             <div class="input-group-addon">
+                                 <span class="glyphicon glyphicon-th"></span>
+                             </div>
+                         </div>
+                     </td>
+                 </tr>
+
+                 <tr class="page_desc_en" >
+                     <td><i class="fa fa-files-o"></i> Predefined for :</td>
+                     <td>
+                        <select name="predefined" class="form-control">
+                            <option {% if note is defined and note.predefined == 0 %} selected="selected" {% endif %} value="0"> Not Predefined </option>
+                            <option {% if note is defined and note.predefined == 1 %} selected="selected" {% endif %} value="1">1 < value <= 10</option>
+                            <option {% if note is defined and note.predefined == 2 %} selected="selected" {% endif %} value="2">10 < value <= 15</option>
+                            <option {% if note is defined and note.predefined == 3 %} selected="selected" {% endif %} value="3">15 < value <= 20</option>
+                            <option {% if note is defined and note.predefined == 4 %} selected="selected" {% endif %} value="4">20 < value</option>
+                        </select>
+                     </td>
+                 </tr>
+
+
+             </table>
+          </div>
+
+
+                 <p class="text-center mr_top">                    
+                    <button type="submit"  name="add_note_submit" value="1" class="btn btn-success"> Save  <i class="fa-5 fa fa-save"></i></button>
+                    <button type="submit" class="btn btn-primary"> Reset  <i class="fa fa-undo fa-5"></i></button>
+                 </p>
+                 </form>
+
+              </div>
+           </div>
+       <!--/left Side -->
+
+        {% elseif page_index == 2 %}
+            <!--left Side -->
+            <div class="col-sm-10 col-xs-12">
+                <div class="forms">
+                    <h5 class="form_title text-center"><i class="fa fa-edit"></i>edit note</h5>
+
+                    {% for flash_message in app.session.flashbag.get('notice') %}
+                        <div class="alert alert-success">
+                            <i class="fa fa-check font_big"></i>&nbsp;
+                            {{ flash_message }}
+                        </div>
+                    {% endfor %}
+
+                    {% if errors is defined %}
+                        <div class="alert alert-danger">
+                            {% for error in errors %}
+                                <li>{{ error.message }}</li>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+
+                 <form action="" method="post" enctype="multipart/form-data" >
+                    <div class="table-responsive" >
+                        <table class="table" dir="ltr">
+                            <tr>
+                                <td class="label_width input_label"><i class="fa fa-pencil fa-5"></i> Note Title :</td>
+                                <td><input type="text" value="{{ note.title }}" class="form-control inp_width" name="title" placeholder="note title ...."/></td>
+                            </tr>
+
+
+                            <tr>
+                                <td><i class="fa fa-unlock-alt"></i> Note Status :</td>
+                                <td>
+                                    <input type="radio" name="status" {% if note.status == 1 %} checked="true" {% endif %} value="1" /> <i class="fa fa-thumbs-o-up"></i>  active
+                                    <input type="radio" name="status" {% if note.status == 0 %} checked="true" {% endif %} value="0"  /> <i class="fa fa-thumbs-o-down"></i> not active
+                                </td>
+                            </tr>
+
+
+
+                            <tr class="page_desc_en" >
+                                <td><i class="fa fa-files-o"></i>Note Content :</td>
+                                <td colspan="3">
+                                    <textarea name="content" class="form-control ckeditor"   rows="5" placeholder="note content..">{{ note.content }}</textarea>
+                                </td>
+                            </tr>
+
+                            <tr class="page_desc_en" >
+                                <td><i class="fa fa-files-o"></i> Note Date :</td>
+                                <td colspan="3">
+                                    <div class="input-group date" data-provide="datepicker">
+                                        <input name="note_date" value="{{ note.noteDate|date('d-m-Y')}}" type="text" class="form-control datepicker">
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-th"></span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="page_desc_en" >
+                                <td><i class="fa fa-files-o"></i> Predefined for :</td>
+                                <td>
+                                    <select name="predefined" class="form-control">
+                                        <option {% if note.predefined == 0 %} selected="selected" {% endif %} value="0">Not Predefined</option>
+                                        <option {% if note.predefined == 1 %} selected="selected" {% endif %} value="1">1 < value <= 10</option>
+                                        <option {% if note.predefined == 2 %} selected="selected" {% endif %} value="2">10 < value <= 15</option>
+                                        <option {% if note.predefined == 3 %} selected="selected" {% endif %} value="3">15 < value <= 20</option>
+                                        <option {% if note.predefined == 4 %} selected="selected" {% endif %} value="4">20 < value</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+
+                    <p class="text-center mr_top">
+                        <button type="submit"  name="edit_note_submit" value="1" class="btn btn-success"> Save  <i class="fa-5 fa fa-save"></i></button>
+                        <a href="{{ url('edit-note') }}" class="btn btn-primary"> Back  <i class="fa fa-undo fa-5"></i></a>
+                    </p>
+                    </form>
+                </div>
+            </div>
+            <!--/left Side -->
+        {% endif %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            $('.datepicker').datepicker("setDate", new Date());
+        });
+    </script>
+{% endblock %}
+
+

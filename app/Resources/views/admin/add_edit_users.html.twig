@@ -1,0 +1,207 @@
+{% extends 'adminbase.html.twig' %}
+
+{% block title %} Control Panel :: {{ title }} {% endblock %}
+
+
+
+{% block body %}
+    {% if page_index == 1 %}
+      <!--left Side -->
+        <div class="col-sm-10 col-xs-12" xmlns="http://www.w3.org/1999/html">
+             <div class="forms">
+                <h5 class="form_title text-center"><i class="fa fa-edit"></i>add user</h5>
+                 {% for flash_message in app.session.flashbag.get('notice') %}
+                     <div class="alert alert-success">
+                         <i class="fa fa-check font_big"></i>&nbsp;
+                         {{ flash_message }}
+                     </div>
+                 {% endfor %}
+
+                 {% if errors is defined %}
+                     <div class="alert alert-danger">
+                         {% for error in errors %}
+                             <li>{{ error.message }}</li>
+                         {% endfor %}
+                     </div>
+                 {% endif %}
+
+
+         <form method="post" action="{{ url('add-user') }}" enctype="multipart/form-data">
+           <div class="table-responsive" >
+             <table class="table" dir="ltr">
+
+                <tr>
+                    <td class="label_width input_label"><i class="fa fa-pencil fa-5"></i> Full Name :</td>
+                    <td><input type="text" {% if user is defined  %} value="{{ user.fullname}}" {% endif %} class="form-control inp_width" name="fullname" placeholder="FullName ...."/></td>
+                </tr>
+
+                <tr>
+                   <td class="label_width input_label"><i class="fa fa-pencil fa-5"></i> User Name :</td>
+                   <td><input type="text" {% if user is defined %} value="{{ user.username}}" {% endif %} class="form-control inp_width" name="username" placeholder="User Name ...."/></td>
+                </tr>
+
+                <tr>
+                     <td class="label_width input_label"><i class="fa fa-pencil fa-5"></i> Email :</td>
+                     <td><input type="text" {% if user is defined  %}value="{{ user.email}}" {% endif %} class="form-control inp_width" name="email" placeholder="Email ...."/></td>
+                 </tr>
+
+                 <tr>
+                     <td class="label_width input_label"><i class="fa fa-pencil fa-5"></i> Password :</td>
+                     <td><input type="password" value="" class="form-control inp_width" name="password" placeholder="Password ...."/></td>
+                 </tr>
+
+                 <tr>
+                     <td class="label_width input_label"><i class="fa fa-pencil fa-5"></i> Mobile :</td>
+                     <td><input type="text" {% if user is defined  %}value="{{ user.mobile}}" {% endif %} class="form-control inp_width" name="mobile" placeholder="Mobile ...."/></td>
+                 </tr>
+
+
+                   <tr>
+                       <td><i class="fa fa-unlock-alt"></i> User Status :</td>
+                       <td>
+                          <input type="radio" name="status" {% if user is not defined or user.status == 1  %}checked="true"{% endif %} value="1" /> <i class="fa fa-thumbs-o-up"></i>  active
+                          <input type="radio" name="status" {% if user is defined and user.status == 0  %}checked="true"{% endif %} value="0" /> <i class="fa fa-thumbs-o-down"></i> not active
+                       </td>
+                    </tr>
+
+                 <tr>
+                     <td><i class="fa fa-unlock-alt"></i> User Type :</td>
+                     <td>
+                         <select name="usertype" class="form-control inp_width">
+                             <option {% if user is defined and user.usertype == 1 %} selected="selected" {% endif %} value="1">Admininstrator</option>
+                             <option {% if user is defined and user.usertype == 0 %} selected="selected" {% endif %} value="0">User</option>
+                         </select>
+                     </td>
+                 </tr>
+
+                 <tr class="page_desc_en" >
+                     <td><i class="fa fa-files-o"></i> Last Visit Date :</td>
+                     <td colspan="3">
+                         <div class="input-group date" data-provide="datepicker">
+                             <input name="lastvisitDate" type="text" class="form-control datepicker">
+                             <div class="input-group-addon">
+                                 <span class="glyphicon glyphicon-th"></span>
+                             </div>
+                         </div>
+                     </td>
+                 </tr>
+
+             </table>
+          </div>
+
+          <p class="text-center mr_top">
+             <button type="submit"  name="add_user_submit" value="1" class="btn btn-success"> Save  <i class="fa-5 fa fa-save"></i></button>
+             <button type="submit" class="btn btn-primary"> Reset  <i class="fa fa-undo fa-5"></i></button>
+          </p>
+                 </form>
+
+              </div>
+           </div>
+       <!--/left Side -->
+
+
+
+
+
+        {% elseif page_index == 2 %}
+            <!--left Side -->
+            <div class="col-sm-10 col-xs-12">
+                <div class="forms">
+                    <h5 class="form_title text-center"><i class="fa fa-edit"></i>edit user</h5>
+
+                    {% for flash_message in app.session.flashbag.get('notice') %}
+                        <div class="alert alert-success">
+                            <i class="fa fa-check font_big"></i>&nbsp;
+                            {{ flash_message }}
+                        </div>
+                    {% endfor %}
+
+                    {% if errors is defined %}
+                        <div class="alert alert-danger">
+                            {% for error in errors %}
+                                <li>{{ error.message }}</li>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+
+                 <form action="" method="post" enctype="multipart/form-data" >
+                    <div class="table-responsive" >
+                        <table class="table" dir="ltr">
+                            <tr>
+                                <td class="label_width input_label"><i class="fa fa-pencil fa-5"></i> Full Name :</td>
+                                <td><input type="text" value="{{ user.fullname }}" class="form-control inp_width" name="fullname" placeholder="Fullname ...."/></td>
+                            </tr>
+
+                            <tr>
+                                <td class="label_width input_label"><i class="fa fa-pencil fa-5"></i> User Name :</td>
+                                <td><input type="text" value="{{ user.username }}" class="form-control inp_width" name="username" placeholder="Username ...."/></td>
+                            </tr>
+
+                            <tr>
+                                <td class="label_width input_label"><i class="fa fa-pencil fa-5"></i> Email :</td>
+                                <td><input type="text" value="{{ user.email }}" class="form-control inp_width" name="email" placeholder="Email ...."/></td>
+                            </tr>
+
+                            <tr>
+                                <td class="label_width input_label"><i class="fa fa-pencil fa-5"></i> Password :</td>
+                                <td><input type="password" value="" class="form-control inp_width" name="password" placeholder="Password ...."/></td>
+                            </tr>
+
+                            <tr>
+                                <td class="label_width input_label"><i class="fa fa-pencil fa-5"></i> Mobile :</td>
+                                <td><input type="text" value="{{ user.mobile }}" class="form-control inp_width" name="mobile" placeholder="Mobile ...."/></td>
+                            </tr>
+
+
+                            <tr>
+                                <td><i class="fa fa-unlock-alt"></i> User Status :</td>
+                                <td>
+                                    <input type="radio" name="status" {% if user.status == 1 %} checked="true" {% endif %} value="1" /> <i class="fa fa-thumbs-o-up"></i>  active
+                                    <input type="radio" name="status" {% if user.status == 0 %} checked="true" {% endif %} value="0" /> <i class="fa fa-thumbs-o-down"></i> not active
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td><i class="fa fa-unlock-alt"></i> User Type :</td>
+                                <td>
+                                    <select name="usertype" class="form-control inp_width">
+                                        <option {% if user.usertype == 1 %} selected="selected" {% endif %} value="1"> Admininstrator </option>
+                                        <option {% if user.status != 1 %} selected="selected" {% endif %} value="0"> User </option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr class="page_desc_en" >
+                                <td><i class="fa fa-files-o"></i> Last Visit Date :</td>
+                                <td colspan="3">
+                                    <div class="input-group date" data-provide="datepicker">
+                                        <input name="lastvisitDate" value="{{ user.lastvisitDate|date('d-m-Y') }}" type="text" class="form-control datepicker">
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-th"></span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+
+                    <p class="text-center mr_top">
+                        <button type="submit"  name="edit_user_submit" value="1" class="btn btn-success"> Save  <i class="fa-5 fa fa-save"></i></button>
+                        <a href="{{ url('edit-user') }}" class="btn btn-primary"> Back  <i class="fa fa-undo fa-5"></i></a>
+                    </p>
+                    </form>
+                </div>
+            </div>
+            <!--/left Side -->
+        {% endif %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            $('.datepicker').datepicker();
+        });
+    </script>
+{% endblock %}
+
+

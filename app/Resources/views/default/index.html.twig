@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Welcome {% endblock %}
+
+{% block body %}
+
+    <div class="container" style="margin-top:75px;">
+
+        <div class="row row-offcanvas row-offcanvas-right">
+
+            <div class="col-xs-12 col-sm-9">
+                <p class="pull-right visible-xs">
+                    <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+                </p>
+                <div class="jumbotron" id="ajax-response">
+                    <h1>Hello, {{ app.session.get('fullname') }}</h1>
+                    <h3>This is weather status for today: </h3>
+
+                    {% if  weather_status.Temperature %}
+                        <h5>Temperature: {{ weather_status.Temperature }}</h5>
+                    {% endif %}
+
+                    {% if  weather_status.Wind %}
+                        <h5>Wind: {{ weather_status.Wind }}</h5>
+                    {% endif %}
+
+                    {% if  weather_status.DewPoint %}
+                        <h5>Dew Point: {{ weather_status.DewPoint }}</h5>
+                    {% endif %}
+
+                    {% if  weather_status.RelativeHumidity %}
+                        <h5>Relative Humidity: {{ weather_status.RelativeHumidity }}</h5>
+                    {% endif %}
+
+                    {% if  weather_status.Pressure %}
+                       <h5>Pressure: {{ weather_status.Pressure }}</h5>
+                    {% endif %}
+                </div>
+
+            </div><!--/.col-xs-12.col-sm-9-->
+
+            <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
+                <div class="list-group">
+                    <a note_id="temp" class="list-group-item notes active">Weather Status</a>
+                    {% for note in notes %}
+                    <a note_id="{{ note.id }}" class="list-group-item notes">{{ note.title }}</a>
+                    {% endfor %}
+                </div>
+            </div><!--/.sidebar-offcanvas-->
+        </div><!--/row-->
+
+        <hr>
+
+        <footer>
+
+        </footer>
+
+    </div>
+
+    <script type="text/javascript">
+
+        $('.notes').click(function(){
+            var note_link = $(this);
+            $.ajax({
+                url: "{{url('get-note')}}",
+                data: {
+                    note_id: $(this).attr('note_id')
+                },
+                type: 'POST',
+                success: function(result){
+                    $('#ajax-response').fadeOut(400).html(result).fadeIn(400);
+                    $("html, body").animate({ scrollTop: $('#ajax-response').offset().top }, 1000);
+                    $('.notes').removeClass('active');
+                    note_link.addClass('active');
+                }});
+        });
+    </script>
+    <style type="text/css">
+        .notes{
+            cursor: pointer;
+        }
+    </style>
+{% endblock %}
+
