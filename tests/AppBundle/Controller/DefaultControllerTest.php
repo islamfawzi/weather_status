@@ -28,9 +28,7 @@ class DefaultControllerTest extends WebTestCase
         $this->assertContains('admin', $form->get("password")->getValue());
 
 
-        $crawler = $client->request('GET', '/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('Hello', $crawler->filter('h1')->text());
+
 
     }
 
@@ -54,6 +52,7 @@ class DefaultControllerTest extends WebTestCase
         $form['mobile'] = '0123456789';
 
         $crawler = $client->submit($form);
+   //     $this->assertTrue($client->getResponse()->isRedirect());
 
         $this->assertContains('islam', $form->get("username")->getValue());
         $this->assertContains('islam@mail.com', $form->get("email")->getValue());
