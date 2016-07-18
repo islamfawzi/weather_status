@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\DateTime;
 
-class DefaultController extends Controller
+class FrontController extends Controller
 {
     /////////////////////////////////// Index /////////////////////////////////////
     /**
