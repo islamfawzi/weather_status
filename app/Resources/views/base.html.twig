@@ -7,8 +7,7 @@
         <link type="text/css" rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}"/>
         <link type="text/css" rel="stylesheet" href="{{asset('assets/css/font-awesome.min.css')}}"/>
         <link rel="stylesheet" href="{{asset('assets/fonts/font.css')}}" type="text/css" media="screen"/>
-        <link type="text/css" rel="stylesheet" href="{{asset('assets/css/admin/droid.css')}}"/>
-        <link type="text/css" rel="stylesheet" href="{{asset('assets/css/admin/datepicker.css')}}"/>
+
         <script type="text/javascript" src="{{asset('assets/js/jquery-1.9.1.min.js') }}"></script>
 
         <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/orange-logo.png') }}" />
@@ -23,7 +22,7 @@
                 <div class="modal-header">
                     <h4 class="modal-title" id="myModalLabel">Login</h4>
                 </div>
-                <form action="{{ url('login') }}" method="post">
+                <form action="{{ url('login') }}" method="post" name="login">
                     <div class="modal-body">
                         <input name="email" class="form-control" type="text" placeholder="Email"/>
                         <br>

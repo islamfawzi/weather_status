@@ -6,27 +6,29 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class AdminControllerTest extends WebTestCase
 {
+    private $client;
+    public function __construct() {
+        $this->client = static::createClient();
+    }
 
     public function testLogin()
     {
-        $client = static::createClient();
-        $crawler = $client->request('GET', '/admincp/login');
+//        $client = static::createClient();
+        $crawler = $this->client->request('GET', '/admincp/login');
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertContains('Login', $crawler->filter('.login_form')->text());
-        $client->followRedirects(true);
+        $this->client->followRedirects(true);
 
+        $form = $crawler->selectButton('submit_login')->form();
+        $form['username'] = 'admin';
+        $form['password'] = 'admin';
 
-        $form = $crawler->selectButton('submit_login')->form(
-        array(
-           'username' => 'admin',
-           'password' => 'admin'
-        ));
+        $crawler = $this->client->submit($form);
 
-        $client->submit($form);
-        $response = $client->getResponse();
-        $this->assertContains('Hello', $response->getContent());
-
+        $this->assertContains('admin', $form->get("username")->getValue());
+        $this->assertContains('admin', $form->get("password")->getValue());
+        $this->assertTrue($this->client->getResponse()->isSuccessful());
 
 
 
